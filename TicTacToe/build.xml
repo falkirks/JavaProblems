@@ -28,12 +28,14 @@
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
         <jar jarfile="${dist}/lib/TicTacToe-${DSTAMP}.jar" basedir="${build}"/>
     </target>
-
+    <target name="run" depends="dist">
+        <java jar="${dist}/lib/TicTacToe-${DSTAMP}.jar" fork="true" timeout="500" logerror="true"/>
+    </target>
     <target name="clean"
             description="clean up" >
         <!-- Delete the ${build} and ${dist} directory trees -->
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
     </target>
-    <target name="all" depends="compile, clean" />
+    <target name="all" depends="run, clean" />
 </project>
