@@ -21,7 +21,7 @@ public class Main {
             System.out.println("IO issue.");
         }
         catch (Exception e){
-            System.out.println("Please enter proper stuff.");
+            System.out.println("Please enter proper stuff!");
             main(new String[0]);
         }
     }
