@@ -49,7 +49,7 @@ public class AIPlayer extends BasePlayer{
         for (int i = 0; i < movePlot.length; i++) {
             if(movePlot[i][0] + movePlot[i][1] + movePlot[i][2] == 20){
                 if(movePlot[i][0] == 0) claimTile(lines[i][0][0], lines[i][0][1]);
-                else if(data[i][1] == 0) claimTile(lines[i][1][0], lines[i][1][1]);
+                else if(movePlot[i][1] == 0) claimTile(lines[i][1][0], lines[i][1][1]);
                 else claimTile(lines[i][2][0], lines[i][2][1]);
                 return;
             }
@@ -58,7 +58,7 @@ public class AIPlayer extends BasePlayer{
         for (int i = 0; i < movePlot.length; i++) { //Calculate possible losses
             if(movePlot[i][0] + movePlot[i][1] + movePlot[i][2] == 2){ //We have found a possible loss
                 if(movePlot[i][0] == 0) claimTile(lines[i][0][0], lines[i][0][1]);
-                else if(data[i][1] == 0) claimTile(lines[i][1][0], lines[i][1][1]);
+                else if(movePlot[i][1] == 0) claimTile(lines[i][1][0], lines[i][1][1]);
                 else claimTile(lines[i][2][0], lines[i][2][1]);
                 return;
             }
