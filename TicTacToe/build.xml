@@ -60,32 +60,6 @@
   
   <!-- JDK definitions -->
   
-  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
-  <path id="jdk.classpath.1.6">
-    <fileset dir="${jdk.home.1.6}">
-      <include name="lib/deploy.jar"/>
-      <include name="lib/dt.jar"/>
-      <include name="lib/javaws.jar"/>
-      <include name="lib/jce.jar"/>
-      <include name="lib/jconsole.jar"/>
-      <include name="lib/management-agent.jar"/>
-      <include name="lib/plugin.jar"/>
-      <include name="lib/sa-jdi.jar"/>
-      <include name="../Classes/charsets.jar"/>
-      <include name="../Classes/classes.jar"/>
-      <include name="../Classes/jsse.jar"/>
-      <include name="../Classes/ui.jar"/>
-      <include name="lib/ext/apple_provider.jar"/>
-      <include name="lib/ext/dnsns.jar"/>
-      <include name="lib/ext/localedata.jar"/>
-      <include name="lib/ext/sunjce_provider.jar"/>
-      <include name="lib/ext/sunpkcs11.jar"/>
-    </fileset>
-  </path>
-  
-  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
   
   <!-- Modules -->
   
