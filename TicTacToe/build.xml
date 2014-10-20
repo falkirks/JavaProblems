@@ -1,38 +1,181 @@
-<project name="TicTacToe" default="dist" basedir=".">
-    <description>
-        simple example build file
-    </description>
-    <!-- set global properties for this build -->
-    <property name="src" location="src"/>
-    <property name="build" location="build"/>
-    <property name="dist"  location="dist"/>
-
-    <target name="init">
-        <!-- Create the time stamp -->
-        <tstamp/>
-        <!-- Create the build directory structure used by compile -->
-        <mkdir dir="${build}"/>
-    </target>
-
-    <target name="compile" depends="init"
-            description="compile the source " >
-        <!-- Compile the java code from ${src} into ${build} -->
-        <javac srcdir="${src}" destdir="${build}"/>
-    </target>
-
-    <target name="dist" depends="compile"
-            description="generate the distribution" >
-        <!-- Create the distribution directory -->
-        <mkdir dir="${dist}/lib"/>
-
-        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/TicTacToe-${DSTAMP}.jar" basedir="${build}"/>
-    </target>
-
-    <target name="clean"
-            description="clean up" >
-        <!-- Delete the ${build} and ${dist} directory trees -->
-        <delete dir="${build}"/>
-        <delete dir="${dist}"/>
-    </target>
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tictactoe" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+  <path id="jdk.classpath.1.6">
+    <fileset dir="${jdk.home.1.6}">
+      <include name="lib/deploy.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javaws.jar"/>
+      <include name="lib/jce.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/management-agent.jar"/>
+      <include name="lib/plugin.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="../Classes/charsets.jar"/>
+      <include name="../Classes/classes.jar"/>
+      <include name="../Classes/jsse.jar"/>
+      <include name="../Classes/ui.jar"/>
+      <include name="lib/ext/apple_provider.jar"/>
+      <include name="lib/ext/dnsns.jar"/>
+      <include name="lib/ext/localedata.jar"/>
+      <include name="lib/ext/sunjce_provider.jar"/>
+      <include name="lib/ext/sunpkcs11.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module TicTacToe -->
+  
+  <dirname property="module.tictactoe.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.tictactoe" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.tictactoe" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.tictactoe" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.tictactoe" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="tictactoe.output.dir" value="${module.tictactoe.basedir}/out/production/TicTacToe"/>
+  <property name="tictactoe.testoutput.dir" value="${module.tictactoe.basedir}/out/test/TicTacToe"/>
+  
+  <path id="tictactoe.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="tictactoe.module.production.classpath">
+    <path refid="${module.jdk.classpath.tictactoe}"/>
+  </path>
+  
+  <path id="tictactoe.runtime.production.module.classpath">
+    <pathelement location="${tictactoe.output.dir}"/>
+  </path>
+  
+  <path id="tictactoe.module.classpath">
+    <path refid="${module.jdk.classpath.tictactoe}"/>
+    <pathelement location="${tictactoe.output.dir}"/>
+  </path>
+  
+  <path id="tictactoe.runtime.module.classpath">
+    <pathelement location="${tictactoe.testoutput.dir}"/>
+    <pathelement location="${tictactoe.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.tictactoe">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.tictactoe">
+    <patternset refid="excluded.from.module.tictactoe"/>
+  </patternset>
+  
+  <path id="tictactoe.module.sourcepath">
+    <dirset dir="${module.tictactoe.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.tictactoe" depends="compile.module.tictactoe.production,compile.module.tictactoe.tests" description="Compile module TicTacToe"/>
+  
+  <target name="compile.module.tictactoe.production" description="Compile module TicTacToe; production classes">
+    <mkdir dir="${tictactoe.output.dir}"/>
+    <javac destdir="${tictactoe.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.tictactoe}/javac">
+      <compilerarg line="${compiler.args.tictactoe}"/>
+      <bootclasspath refid="tictactoe.module.bootclasspath"/>
+      <classpath refid="tictactoe.module.production.classpath"/>
+      <src refid="tictactoe.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.tictactoe"/>
+    </javac>
+    
+    <copy todir="${tictactoe.output.dir}">
+      <fileset dir="${module.tictactoe.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.tictactoe.tests" depends="compile.module.tictactoe.production" description="compile module TicTacToe; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.tictactoe" description="cleanup module">
+    <delete dir="${tictactoe.output.dir}"/>
+    <delete dir="${tictactoe.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.tictactoe" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.tictactoe" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
 </project>
