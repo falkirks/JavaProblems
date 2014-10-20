@@ -92,7 +92,7 @@
   
   <!-- Module TicTacToe -->
   
-  <dirname property="module.tictactoe.basedir" file="${ant.file}"/>
+  <dirname property="module.tictactoe.basedir" file="./src"/>
   
   
   <property name="module.jdk.home.tictactoe" value="${project.jdk.home}"/>
