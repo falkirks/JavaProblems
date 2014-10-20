@@ -2,4 +2,4 @@ language: java
 env:
   - TEST_DIR=TicTacToe
   - TEST_DIR=BoxMaker
-script: cd $TEST_DIR && javac src/com/falkirks/Main.java && java Main
+script: cd $TEST_DIR && ant build
