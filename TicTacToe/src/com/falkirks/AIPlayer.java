@@ -87,62 +87,58 @@ public class AIPlayer extends BasePlayer{
             }
         }
         //FIND FORKS
-        //TODO: Add opt\
-        // ion 1 strategy
-        for(int i = 0; i < board.length; i++){
-            if(test[i] == 0){
-                test = board.clone();
-                int c = 0;
-                test[i] = 1;
-                data = calculateBoard(test);
-                for (int j = 0; j < data.length; j++) {
-                    if(data[j][0] + data[j][1] + data[j][2] == 2) c++;
-                }
-                if(c > 1){
-                    board[i] = 10;
-                    toMove = false;
-                    return;
+        //TODO Add option 1 strategy
+        for(int r = 0; r < getBoard().getTiles().length; r++){
+            for(int c = 0; c < getBoard().getTiles()[r].length; c++){
+                if(getBoard().isEmpty(r, c)) {
+                    //TODO maybe clone the Board object
+                    BasePlayer[][] testBoard = getBoard().getTiles();
+                    testBoard[r][c] = new HumanPlayer(getBoard()); //TODO generate better
+                    int[][] testMovePlot = calculateBoard(testBoard);
+                    int winCount = 0;
+                    for (int j = 0; j < testMovePlot.length; j++) {
+                        if(testMovePlot[j][0] + testMovePlot[j][1] + testMovePlot[j][2] == 2){
+                            winCount++;
+                        }
+                    }
+                    if(c >= 2){
+                        claimTile(r, c);
+                        return;
+                    }
                 }
             }
         }
-        //Mark center
-        if(board[4] == 0){
-            board[4] = 10;
-            toMove = false;
+        if(claimTile(1, 1)){
             return;
         }
-        //Opposite corners
-        if(board[0] == 0 && board[8] == 1){
-            board[0] = 10;
-            toMove = false;
+        if(getBoard().isEmpty(0, 0) && getBoard().isEnemy(2, 2, this)){
+            claimTile(0, 0);
             return;
         }
-        if(board[8] == 0 && board[0] == 1){
-            board[8] = 10;
-            toMove = false;
+        if(getBoard().isEmpty(2, 2) && getBoard().isEnemy(0, 0, this)){
+            claimTile(2, 2);
             return;
         }
-        if(board[2] == 0 && board[6] == 1){
-            board[2] = 10;
-            toMove = false;
+        if(getBoard().isEmpty(0, 2) && getBoard().isEnemy(2, 0, this)){
+            claimTile(0, 2);
             return;
         }
-        if(board[6] == 0 && board[2] == 1){
-            board[6] = 10;
-            toMove = false;
+        if(getBoard().isEmpty(2, 0) && getBoard().isEnemy(0, 2, this)){
+            claimTile(2, 0);
             return;
         }
         //Any corner and any side
-        if(board[0] == 0) board[0] = 10;
-        else if(board[2] == 0) board[2] = 10;
-        else if(board[6] == 0) board[6] = 10;
-        else if(board[8] == 0) board[8] = 10;
+        //TODO this should be rewritten
+        if(claimTile(0, 0));
+        else if(claimTile(0, 2));
+        else if(claimTile(2, 0));
+        else if(claimTile(2, 2));
         else {
-            for(int k = 0; k < board.length; k++){
-                if(board[k] == 0){
-                    board[k] = 10;
-                    toMove = false;
-                    return;
+            for(int r = 0; r < getBoard().getTiles().length; r++) {
+                for (int c = 0; c < getBoard().getTiles()[r].length; c++) {
+                    if (claimTile(r, c)) {
+                        return;
+                    }
                 }
             }
         }
