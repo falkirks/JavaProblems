@@ -33,25 +33,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasePlayer.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="BasePlayer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/falkirks/BasePlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+            <state vertical-scroll-proportion="0.46931407" vertical-offset="0" max-vertical-offset="831">
               <caret line="36" column="60" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
               <folding>
                 <element signature="e#797#798#0" expanded="true" />
                 <element signature="e#836#837#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tictactoe.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tictactoe.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.46658415" vertical-offset="812" max-vertical-offset="1620">
-              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -138,7 +128,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="5" />
+    <option name="x" value="2" />
     <option name="y" value="22" />
     <option name="width" value="1260" />
     <option name="height" value="928" />
@@ -246,7 +236,7 @@
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="FullScreen" value="false" />
-    <property name="GenerateAntBuildDialog.generateSingleFile" value="false" />
+    <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="false" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="false" />
@@ -477,16 +467,16 @@
       <created>1413746177344</created>
       <updated>1413746177344</updated>
       <workItem from="1413746178884" duration="11712000" />
-      <workItem from="1413815785628" duration="3508000" />
+      <workItem from="1413815785628" duration="3782000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15220000" />
+    <option name="totallyTimeSpent" value="15494000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="5" y="22" width="1260" height="928" extended-state="0" />
-    <editor active="true" />
+    <frame x="2" y="22" width="1260" height="928" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -725,20 +715,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/falkirks/BasePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+        <state vertical-scroll-proportion="0.46931407" vertical-offset="0" max-vertical-offset="831">
           <caret line="36" column="60" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
           <folding>
             <element signature="e#797#798#0" expanded="true" />
             <element signature="e#836#837#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tictactoe.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.46658415" vertical-offset="812" max-vertical-offset="1620">
-          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>

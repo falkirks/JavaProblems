@@ -89,7 +89,85 @@
   
   <!-- Modules -->
   
-  <import file="${basedir}/module_tictactoe.xml"/>
+  
+  <!-- Module TicTacToe -->
+  
+  <dirname property="module.tictactoe.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.tictactoe" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.tictactoe" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.tictactoe" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.tictactoe" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="tictactoe.output.dir" value="${module.tictactoe.basedir}/out/production/TicTacToe"/>
+  <property name="tictactoe.testoutput.dir" value="${module.tictactoe.basedir}/out/test/TicTacToe"/>
+  
+  <path id="tictactoe.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="tictactoe.module.production.classpath">
+    <path refid="${module.jdk.classpath.tictactoe}"/>
+  </path>
+  
+  <path id="tictactoe.runtime.production.module.classpath">
+    <pathelement location="${tictactoe.output.dir}"/>
+  </path>
+  
+  <path id="tictactoe.module.classpath">
+    <path refid="${module.jdk.classpath.tictactoe}"/>
+    <pathelement location="${tictactoe.output.dir}"/>
+  </path>
+  
+  <path id="tictactoe.runtime.module.classpath">
+    <pathelement location="${tictactoe.testoutput.dir}"/>
+    <pathelement location="${tictactoe.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.tictactoe">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.tictactoe">
+    <patternset refid="excluded.from.module.tictactoe"/>
+  </patternset>
+  
+  <path id="tictactoe.module.sourcepath">
+    <dirset dir="${module.tictactoe.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.tictactoe" depends="compile.module.tictactoe.production,compile.module.tictactoe.tests" description="Compile module TicTacToe"/>
+  
+  <target name="compile.module.tictactoe.production" description="Compile module TicTacToe; production classes">
+    <mkdir dir="${tictactoe.output.dir}"/>
+    <javac destdir="${tictactoe.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.tictactoe}/javac">
+      <compilerarg line="${compiler.args.tictactoe}"/>
+      <bootclasspath refid="tictactoe.module.bootclasspath"/>
+      <classpath refid="tictactoe.module.production.classpath"/>
+      <src refid="tictactoe.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.tictactoe"/>
+    </javac>
+    
+    <copy todir="${tictactoe.output.dir}">
+      <fileset dir="${module.tictactoe.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.tictactoe.tests" depends="compile.module.tictactoe.production" description="compile module TicTacToe; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.tictactoe" description="cleanup module">
+    <delete dir="${tictactoe.output.dir}"/>
+    <delete dir="${tictactoe.testoutput.dir}"/>
+  </target>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
