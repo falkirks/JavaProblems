@@ -11,16 +11,16 @@ public class HumanPlayer extends BasePlayer{
 
     void doMove() {
         try {
-            sendMesage("It is your turn.");
+            sendMessage("It is your turn.");
             System.out.print("Row:");
             int r = scanner.nextInt();
             System.out.print("Column:");
             int c = scanner.nextInt();
             if(claimTile(r, c)){
-                sendMesage("The tile is yours.");
+                sendMessage("The tile is yours.");
             }
             else{
-                sendMesage("That tile isn't claimable.");
+                sendMessage("That tile isn't claimable.");
                 doMove();
             }
         }
@@ -32,16 +32,16 @@ public class HumanPlayer extends BasePlayer{
     void showState(int state) {
        switch (state){
            case WON_STATE:
-               sendMesage("Congrats! You have won the game.");
+               sendMessage("Congrats! You have won the game.");
                break;
            case TIE_STATE:
-               sendMesage("You have tied.");
+               sendMessage("You have tied.");
                break;
            case LOST_STATE:
-               sendMesage("You have lost. Better luck next time");
+               sendMessage("You have lost. Better luck next time");
                break;
            default:
-               sendMesage("Unimplemented state.");
+               sendMessage("Unimplemented state.");
                break;
        }
     }

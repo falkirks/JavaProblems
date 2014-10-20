@@ -31,7 +31,12 @@ abstract public class BasePlayer {
         return board.claimTile(r, c, this);
     }
     //TODO fix typo and refactor
-    protected void sendMesage(String msg){
-        System.out.println("[" + getPlayerChar() + "] " + msg);
+    protected void sendMessage(String msg){
+        sendMessage(msg, false);
+    }
+    protected void sendMessage(String msg, Boolean isDebug){
+        if(!isDebug || Main.isDebug) {
+            System.out.println("[" + getPlayerChar() + "] " + msg);
+        }
     }
 }

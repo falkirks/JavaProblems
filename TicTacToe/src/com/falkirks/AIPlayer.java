@@ -25,7 +25,9 @@ public class AIPlayer extends BasePlayer{
     }
 
     void doMove() {
+        sendMessage("AI is taking turn.");
         int[][] movePlot = calculateBoard(getBoard());
+        sendMessage("Doing double fork check...", true);
         if(firstMove && !getBoard().isBoardClear()){ //Prevent a double fork
             firstMove = false;
             if(getBoard().isEnemy(0, 0, this)){
@@ -46,6 +48,7 @@ public class AIPlayer extends BasePlayer{
             }
         }
         //WINS
+        sendMessage("Doing wins...", true);
         for (int i = 0; i < movePlot.length; i++) {
             if(movePlot[i][0] + movePlot[i][1] + movePlot[i][2] == 20){
                 if(movePlot[i][0] == 0) claimTile(lines[i][0][0], lines[i][0][1]);
@@ -54,6 +57,7 @@ public class AIPlayer extends BasePlayer{
                 return;
             }
         }
+        sendMessage("Doing loses...", true);
         //LOSES
         for (int i = 0; i < movePlot.length; i++) { //Calculate possible losses
             if(movePlot[i][0] + movePlot[i][1] + movePlot[i][2] == 2){ //We have found a possible loss
@@ -64,28 +68,32 @@ public class AIPlayer extends BasePlayer{
             }
         }
 
-
+        sendMessage("Doing forks...", true);
         //FORK
         for(int r = 0; r < getBoard().getTiles().length; r++){
             for(int c = 0; c < getBoard().getTiles()[r].length; c++){
                 if(getBoard().isEmpty(r, c)) {
                     //TODO maybe clone the Board object
                     BasePlayer[][] testBoard = getBoard().getTiles();
+                    sendMessage("Setting " + r + ":" + c, true);
                     testBoard[r][c] = this;
                     int[][] testMovePlot = calculateBoard(testBoard);
                     int winCount = 0;
                     for (int j = 0; j < testMovePlot.length; j++) {
                         if(testMovePlot[j][0] + testMovePlot[j][1] + testMovePlot[j][2] == 20){
+                            sendMessage("Found a possible fork.", true);
                             winCount++;
                         }
                     }
-                    if(c >= 2){
+                    if(winCount >= 2){
+                        sendMessage("Claiming...", true);
                         claimTile(r, c);
                         return;
                     }
                 }
             }
         }
+        sendMessage("Doing fork blocks...", true);
         //FIND FORKS
         //TODO Add option 1 strategy
         for(int r = 0; r < getBoard().getTiles().length; r++){
@@ -93,6 +101,7 @@ public class AIPlayer extends BasePlayer{
                 if(getBoard().isEmpty(r, c)) {
                     //TODO maybe clone the Board object
                     BasePlayer[][] testBoard = getBoard().getTiles();
+                    sendMessage("Setting " + r + ":" + c, true);
                     testBoard[r][c] = new HumanPlayer(getBoard()); //TODO generate better
                     int[][] testMovePlot = calculateBoard(testBoard);
                     int winCount = 0;
@@ -101,16 +110,19 @@ public class AIPlayer extends BasePlayer{
                             winCount++;
                         }
                     }
-                    if(c >= 2){
+                    if(winCount >= 2){
+                        sendMessage("Claiming...", true);
                         claimTile(r, c);
                         return;
                     }
                 }
             }
         }
+        sendMessage("Claiming center...", true);
         if(claimTile(1, 1)){
             return;
         }
+        sendMessage("Opposite corners...", true);
         if(getBoard().isEmpty(0, 0) && getBoard().isEnemy(2, 2, this)){
             claimTile(0, 0);
             return;
@@ -129,11 +141,13 @@ public class AIPlayer extends BasePlayer{
         }
         //Any corner and any side
         //TODO this should be rewritten
+        sendMessage("Doing corners...", true);
         if(claimTile(0, 0));
         else if(claimTile(0, 2));
         else if(claimTile(2, 0));
         else if(claimTile(2, 2));
         else {
+            sendMessage("Finding any tile...", true);
             for(int r = 0; r < getBoard().getTiles().length; r++) {
                 for (int c = 0; c < getBoard().getTiles()[r].length; c++) {
                     if (claimTile(r, c)) {
@@ -146,7 +160,7 @@ public class AIPlayer extends BasePlayer{
 
     void showState(int state) {
         if(state == LOST_STATE){
-            sendMesage("There is a flaw in my AI. Please review game and correct.");
+            sendMessage("There is a flaw in my AI. Please review game and correct.", true);
         }
     }
     public int[][] calculateBoard(Board board){

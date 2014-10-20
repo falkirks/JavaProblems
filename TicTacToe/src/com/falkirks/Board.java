@@ -31,7 +31,11 @@ public class Board {
         return tiles[r][c];
     }
     public BasePlayer[][] getTiles() {
-        return tiles.clone();
+        BasePlayer[][] result = new BasePlayer[tiles.length][tiles[0].length];
+        for (int r = 0; r < tiles.length; r++) {
+            result[r] = tiles[r].clone();
+        }
+        return result;
     }
     public void showBoard(){
         for (int r = 0; r < tiles.length; r++){

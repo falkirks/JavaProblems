@@ -3,6 +3,7 @@ package com.falkirks;
 public class Main {
     static public PlayerStore playerStore;
     static public Board board;
+    static public final Boolean isDebug = true;
     public static void main(String[] args) {
         playerStore = new PlayerStore();
 
@@ -14,6 +15,12 @@ public class Main {
 
         //HumanPlayer humanPlayer1 = new HumanPlayer(board);
         //playerStore.addPlayer(humanPlayer1);
+
+        AIPlayer aiPlayer = new AIPlayer(board);
+        playerStore.addPlayer(aiPlayer);
+
+        //AIPlayer aiPlayer1 = new AIPlayer(board);
+        //playerStore.addPlayer(aiPlayer1);
 
         playerStore.startGame();
 
