@@ -25,6 +25,7 @@ public class HumanPlayer extends BasePlayer{
             }
         }
         catch(InputMismatchException e){
+            scanner.next(); //TODO A BufferedReader would remove the need for this
             doMove();
         }
     }
