@@ -9,4 +9,5 @@ This is my personal repository for storing school programming projects.
 - Select build in the menu and then "Generate Ant build..."
 - Pick ```singled-file```, and ```overwrite```, deselect ```use JDK definitions``` and set the ```output name``` to ```build```.
 - Open .travis.yml in a text editor and add the project folder name to the ```PROJECT_DIR``` variable.
+- Open the build.xml and remove ```-source 1.6``` (or other JDK version) from line ```70```.
 - Push your changes and make sure the build passes.
