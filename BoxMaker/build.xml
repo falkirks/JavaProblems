@@ -67,7 +67,7 @@
   
   
   
-  <property name="compiler.args.boxmaker" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  <property name="compiler.args.boxmaker" value="-encoding UTF-8 ${compiler.args}"/>
   
   <property name="boxmaker.output.dir" value="${module.boxmaker.basedir}/out/production/BoxMaker"/>
   <property name="boxmaker.testoutput.dir" value="${module.boxmaker.basedir}/out/test/BoxMaker"/>
