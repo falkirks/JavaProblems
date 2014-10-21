@@ -1,5 +1,7 @@
+---
 language: java
 env:
   - PROJECT_DIR=TicTacToe
   - PROJECT_DIR=BoxMaker
-script: cd $PROJECT_DIR && ant all
+  - PROJECT_DIR=1
+script: 'cd $PROJECT_DIR && ant all'
