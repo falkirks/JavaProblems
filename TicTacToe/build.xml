@@ -144,6 +144,6 @@
   
   <target name="all" depends="run" description="build all and run"/>
   <target name="run" depends="build.modules">
-    <java classname="" fork="true" timeout="500" logerror="true"/>
+    <java classname="com.falkirks.Main" fork="true" timeout="500" logerror="true"/>
   </target>
 </project>
