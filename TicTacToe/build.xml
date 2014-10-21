@@ -1,4 +1,4 @@
-<project name="{{name}}" default="dist" basedir=".">
+<project name="TicTacToe" default="dist" basedir=".">
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
     <property name="build" location="build"/>
@@ -23,7 +23,7 @@
         <mkdir dir="${dist}/lib"/>
 
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/{{name}}-${DSTAMP}.jar" basedir="${build}"/>
+        <jar jarfile="${dist}/lib/TicTacToe-${DSTAMP}.jar" basedir="${build}"/>
     </target>
 
     <target name="clean"
