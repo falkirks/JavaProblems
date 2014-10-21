@@ -1,5 +1,5 @@
 language: java
 env:
-  - TEST_DIR=TicTacToe
-  - TEST_DIR=BoxMaker
-script: cd $TEST_DIR && ant all
+  - PROJECT_DIR=TicTacToe
+  - PROJECT_DIR=BoxMaker
+script: cd $PROJECT_DIR && ant all
