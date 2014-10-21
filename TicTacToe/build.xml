@@ -142,5 +142,8 @@
   
   <target name="build.modules" depends="init, clean, compile.module.tictactoe" description="build all modules"/>
   
-  <target name="all" depends="build.modules" description="build all"/>
+  <target name="all" depends="run" description="build all and run"/>
+  <target name="run" depends="build.modules">
+    <java classname="" fork="true" timeout="500" logerror="true"/>
+  </target>
 </project>
