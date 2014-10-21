@@ -1,21 +1,31 @@
 package com.falkirks;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class HumanPlayer extends BasePlayer{
-    private Scanner scanner = new Scanner(System.in);
+    private BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
     public HumanPlayer(Board board) {
         super(board);
     }
 
-    void doMove() {
+    void doMove(){
         try {
             sendMessage("It is your turn.");
             System.out.print("Row:");
-            int r = scanner.nextInt();
+            String testRead = scanner.readLine();
+            if(testRead == null){
+                Main.stopGame();
+                sendMessage("\nProcess termination detected.");
+                return;
+            }
+            int r = Integer.parseInt(testRead);
             System.out.print("Column:");
-            int c = scanner.nextInt();
+            int c = Integer.parseInt(scanner.readLine());
             if(claimTile(r, c)){
                 sendMessage("The tile is yours.");
             }
@@ -24,8 +34,11 @@ public class HumanPlayer extends BasePlayer{
                 doMove();
             }
         }
-        catch(InputMismatchException e){
-            scanner.next(); //TODO A BufferedReader would remove the need for this
+        catch(NumberFormatException e) {
+            doMove();
+        }
+        catch (IOException e){
+            sendMessage("IO Exception", true);
             doMove();
         }
     }

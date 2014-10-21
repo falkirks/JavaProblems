@@ -30,7 +30,6 @@ abstract public class BasePlayer {
     protected boolean claimTile(int r, int c){
         return board.claimTile(r, c, this);
     }
-    //TODO fix typo and refactor
     protected void sendMessage(String msg){
         sendMessage(msg, false);
     }
