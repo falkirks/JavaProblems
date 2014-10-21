@@ -17,3 +17,8 @@ This is my personal repository for storing school programming projects.
 - Comment ```add {{project folder name}}```
 - The bot will update the .travis.yml and the issue body.
 
+### Removing a project from Travis
+- Go to the ```Tracked Projects``` issue https://github.com/Falkirks/JavaProblems/issues/1
+- Comment ```remove {{project folder name}}```
+- The bot will update the .travis.yml and the issue body.
+
