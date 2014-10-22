@@ -1,15 +1,10 @@
 package com.falkirks;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class Main {
     static public PlayerStore playerStore;
     static public Board board;
     static public final Boolean isDebug = true;
     static public Boolean running = true;
-    static public BufferedReader becauseJavaSucksAtBeingHelpful = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) {
         playerStore = new PlayerStore();
 
@@ -22,11 +17,11 @@ public class Main {
         //HumanPlayer humanPlayer1 = new HumanPlayer(board);
         //playerStore.addPlayer(humanPlayer1);
 
-        AIPlayer aiPlayer = new AIPlayer(board);
-        playerStore.addPlayer(aiPlayer);
+        //AIPlayer aiPlayer = new AIPlayer(board);
+        //playerStore.addPlayer(aiPlayer);
 
-        //HTTPPlayer httpPlayer = new HTTPPlayer(board);
-        //playerStore.addPlayer(httpPlayer);
+        HTTPPlayer httpPlayer = new HTTPPlayer(board);
+        playerStore.addPlayer(httpPlayer);
 
         //AIPlayer aiPlayer1 = new AIPlayer(board);
         //playerStore.addPlayer(aiPlayer1);
@@ -36,6 +31,7 @@ public class Main {
     }
     public static void startGame(){
         while(Main.running) {
+            System.out.println("\f");
             playerStore.doNextMove();
             board.showBoard();
 
