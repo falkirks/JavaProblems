@@ -19,7 +19,6 @@ public class AIPlayer extends BasePlayer{
             {{0, 0}, {1, 1}, {2, 2}},
             {{0, 2}, {1, 1}, {2, 0}}
     };
-    boolean firstMove = true;
     public AIPlayer(Board board) {
         super(board);
     }
@@ -27,26 +26,6 @@ public class AIPlayer extends BasePlayer{
     void doMove() {
         sendMessage("AI is taking turn.");
         int[][] movePlot = calculateBoard(getBoard());
-        sendMessage("Doing double fork check...", true);
-        /*if(firstMove && !getBoard().isBoardClear()){ //Prevent a double fork
-            firstMove = false;
-            if(getBoard().isEnemy(0, 0, this)){
-                claimTile(2, 2);
-                return;
-            }
-            else if(getBoard().isEnemy(2, 2, this)){
-                claimTile(0, 0);
-                return;
-            }
-            else if(getBoard().isEnemy(0, 2, this)){
-                claimTile(2, 0);
-                return;
-            }
-            else if(getBoard().isEnemy(2, 0, this)){
-                claimTile(0, 2);
-                return;
-            }
-        }*/
         //WINS
         sendMessage("Doing wins...", true);
         for (int i = 0; i < movePlot.length; i++) {
@@ -57,8 +36,8 @@ public class AIPlayer extends BasePlayer{
                 return;
             }
         }
-        sendMessage("Doing loses...", true);
         //LOSES
+        sendMessage("Doing loses...", true);
         for (int i = 0; i < movePlot.length; i++) { //Calculate possible losses
             if(movePlot[i][0] + movePlot[i][1] + movePlot[i][2] == 2){ //We have found a possible loss
                 if(movePlot[i][0] == 0) claimTile(lines[i][0][0], lines[i][0][1]);
@@ -67,9 +46,8 @@ public class AIPlayer extends BasePlayer{
                 return;
             }
         }
-
-        sendMessage("Doing forks...", true);
         //FORK
+        sendMessage("Doing forks...", true);
         for(int r = 0; r < getBoard().getTiles().length; r++){
             for(int c = 0; c < getBoard().getTiles()[r].length; c++){
                 if(getBoard().isEmpty(r, c)) {
@@ -93,8 +71,8 @@ public class AIPlayer extends BasePlayer{
                 }
             }
         }
+        //FORK BLOCKS
         sendMessage("Doing fork blocks...", true);
-        //FIND FORKS
         //TODO get method 1 done
         /*for (int i = 0; i < movePlot.length; i++) {
             if(movePlot[i][0] + movePlot[i][1] + movePlot[i][2] == 10){
