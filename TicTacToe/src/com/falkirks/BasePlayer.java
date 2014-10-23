@@ -4,6 +4,7 @@ abstract public class BasePlayer {
     final static int WON_STATE = 0;
     final static int LOST_STATE = 1;
     final static int TIE_STATE = 2;
+    //TODO implement start state for opening sockets and stuff, when player joins PlayerStore
     final static int START_STATE = 3;
 
     private char playerChar;
