@@ -1,6 +1,8 @@
 package com.falkirks;
 
 
+import java.io.PrintWriter;
+
 public class Board {
     final char wallChar = '|';
     final char floorChar = '_';
@@ -38,23 +40,27 @@ public class Board {
         return result;
     }
     public void showBoard(){
-        for (int r = 0; r < tiles.length; r++){
-            printFloor(tiles[r].length*3);
-            for (int c = 0; c < tiles[r].length; c++){
-                System.out.print(Character.toString(wallChar) + (tiles[r][c] == null ? " " : tiles[r][c].getPlayerChar()) + Character.toString(wallChar));
-            }
-            System.out.println();
-        }
+        System.out.print(getTextBoard());
     }
-    private void printFloor(int length){
+    public String getTextBoard(){
+        String out = "";
+        for (int r = 0; r < tiles.length; r++){
+            out += getFloor(tiles[r].length*3, "");
+            for (int c = 0; c < tiles[r].length; c++){
+                out += Character.toString(wallChar) + (tiles[r][c] == null ? " " : tiles[r][c].getPlayerChar()) + Character.toString(wallChar);
+            }
+            out += "\n";
+        }
+        return out;
+    }
+    private String getFloor(int length, String out){
         if(length > 0){
-            System.out.print(floorChar);
+            out += floorChar;
             length--;
-            printFloor(length);
+            return getFloor(length, out);
         }
-        else{
-            System.out.println();
-        }
+        out += "\n";
+        return out;
     }
     public boolean isFilled(){
         for (int r = 0; r < tiles.length; r++){

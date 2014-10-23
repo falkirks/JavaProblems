@@ -11,17 +11,17 @@ public class Main {
         board = new Board(playerStore);
         board.showBoard();
 
-        HumanPlayer humanPlayer = new HumanPlayer(board);
-        playerStore.addPlayer(humanPlayer);
+        //HumanPlayer humanPlayer = new HumanPlayer(board);
+        //playerStore.addPlayer(humanPlayer);
 
         //HumanPlayer humanPlayer1 = new HumanPlayer(board);
         //playerStore.addPlayer(humanPlayer1);
 
-        //AIPlayer aiPlayer = new AIPlayer(board);
-        //playerStore.addPlayer(aiPlayer);
+        AIPlayer aiPlayer = new AIPlayer(board);
+        playerStore.addPlayer(aiPlayer);
 
-        HTTPPlayer httpPlayer = new HTTPPlayer(board);
-        playerStore.addPlayer(httpPlayer);
+        TelnetPlayer telnetPlayer = new TelnetPlayer(board, 101010);
+        playerStore.addPlayer(telnetPlayer);
 
         //AIPlayer aiPlayer1 = new AIPlayer(board);
         //playerStore.addPlayer(aiPlayer1);
