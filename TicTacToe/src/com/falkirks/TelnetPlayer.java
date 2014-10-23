@@ -81,7 +81,10 @@ public class TelnetPlayer extends BasePlayer {
         closeSockets();
     }
     void sendBoard(){
-        out.println(getBoard().getTextBoard());
+        String[] board = getBoard().getTextBoard().split("\n");
+        for(String line : board){
+            out.println(line);
+        }
     }
     protected void closeSockets(){
         try {
