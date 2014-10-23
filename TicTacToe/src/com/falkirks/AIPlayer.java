@@ -28,7 +28,7 @@ public class AIPlayer extends BasePlayer{
         sendMessage("AI is taking turn.");
         int[][] movePlot = calculateBoard(getBoard());
         sendMessage("Doing double fork check...", true);
-        if(firstMove && !getBoard().isBoardClear()){ //Prevent a double fork
+        /*if(firstMove && !getBoard().isBoardClear()){ //Prevent a double fork
             firstMove = false;
             if(getBoard().isEnemy(0, 0, this)){
                 claimTile(2, 2);
@@ -46,7 +46,7 @@ public class AIPlayer extends BasePlayer{
                 claimTile(0, 2);
                 return;
             }
-        }
+        }*/
         //WINS
         sendMessage("Doing wins...", true);
         for (int i = 0; i < movePlot.length; i++) {
@@ -95,7 +95,28 @@ public class AIPlayer extends BasePlayer{
         }
         sendMessage("Doing fork blocks...", true);
         //FIND FORKS
-        //TODO Add option 1 strategy
+        //TODO get method 1 done
+        /*for (int i = 0; i < movePlot.length; i++) {
+            if(movePlot[i][0] + movePlot[i][1] + movePlot[i][2] == 10){
+                sendMessage("Found possible block...", true);
+                BasePlayer[][] testBoard = getBoard().getTiles();
+                int[] spaces = new int[2];
+                int pointer = 0;
+                for(int j = 0; j < movePlot[i].length; j++){
+                    if(movePlot[i][j] == 0){
+                        spaces[pointer] = j;
+                        pointer++;
+                    }
+                }
+                claimTile(lines[i][spaces[0]][0], lines[i][spaces[0]][1]);
+
+                return;
+            }
+        }*/
+        sendMessage("Trying method 2", true);
+        int forkR = 0;
+        int forkC = 0;
+        int foundCount = 0;
         for(int r = 0; r < getBoard().getTiles().length; r++){
             for(int c = 0; c < getBoard().getTiles()[r].length; c++){
                 if(getBoard().isEmpty(r, c)) {
@@ -111,12 +132,26 @@ public class AIPlayer extends BasePlayer{
                         }
                     }
                     if(winCount >= 2){
-                        sendMessage("Claiming...", true);
-                        claimTile(r, c);
-                        return;
+                        sendMessage("Adding...", true);
+                        forkR = r;
+                        forkC = c;
+                        foundCount++;
                     }
                 }
             }
+        }
+        if(foundCount == 2){
+            //TODO Ideally this edge case shouldn't be here
+            sendMessage("Found double fork, claiming any tile that isn't a corner.", true);
+            if(!claimTile(0, 1))
+                if(!claimTile(1, 0))
+                    if(!claimTile(1, 2))
+                        if (!claimTile(2, 1)){}
+            return;
+        }
+        else if(foundCount == 1){
+            claimTile(forkR, forkC);
+            return;
         }
         sendMessage("Claiming center...", true);
         if(claimTile(1, 1)){
@@ -185,5 +220,18 @@ public class AIPlayer extends BasePlayer{
             return 10;
         }
         return 1;
+    }
+    public int[][][] getRelatedLines(int r, int c){
+        int[][][] out = new int[lines.length][3][2];
+        int pointer = 0;
+        for(int[][] line: lines){
+            for(int[] point: line){
+                if(point[0] == r && point[1] == c){
+                    out[pointer] = line;
+                    pointer++;
+                }
+            }
+        }
+        return out;
     }
 }

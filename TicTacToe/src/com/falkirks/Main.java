@@ -20,7 +20,7 @@ public class Main {
         AIPlayer aiPlayer = new AIPlayer(board);
         playerStore.addPlayer(aiPlayer);
 
-        TelnetPlayer telnetPlayer = new TelnetPlayer(board, 101010);
+        TelnetPlayer telnetPlayer = new TelnetPlayer(board, 10101);
         playerStore.addPlayer(telnetPlayer);
 
         //AIPlayer aiPlayer1 = new AIPlayer(board);
@@ -30,8 +30,10 @@ public class Main {
         startGame();
     }
     public static void startGame(){
+        gameLoop();
+    }
+    public static void gameLoop(){
         while(Main.running) {
-            System.out.println("\f");
             playerStore.doNextMove();
             board.showBoard();
 
