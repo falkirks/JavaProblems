@@ -65,7 +65,7 @@
   
   
   
-  <property name="compiler.args.exam2questions" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+  <property name="compiler.args.exam2questions" value="-encoding UTF-8 ${compiler.args}"/>
   
   <property name="exam2questions.output.dir" value="${module.exam2questions.basedir}/out/production/Exam2Questions"/>
   <property name="exam2questions.testoutput.dir" value="${module.exam2questions.basedir}/out/test/Exam2Questions"/>
