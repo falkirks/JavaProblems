@@ -1,0 +1,3 @@
+ZaWorld
+=======
+ZaWorld is a simple multiplayer game. The object of the game is to **kill all the things**. Players get points for killing other players and "zas". zas can be spawned in **relatively** unlimited amounts by clients, zas won't move. A za will exist for n seconds, at the end of which the spawning player will get points, if the za is killed before it despawns, then the spawner will forfeit points to the killer. The game is entirely p2p over a UDP multicast group. 
