@@ -19,6 +19,8 @@ public class Player extends Entity{
 
     @Override
     public void render(Graphics2D g2d, int x, int y) {
-
+        g2d.setColor(Color.RED);
+        g2d.fillRect(x, y, 25, 25);
     }
+
 }

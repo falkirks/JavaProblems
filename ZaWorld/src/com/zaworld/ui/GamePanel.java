@@ -1,5 +1,6 @@
 package com.zaworld.ui;
 
+import com.zaworld.Game;
 import com.zaworld.entity.Entity;
 import com.zaworld.world.Map;
 
@@ -7,9 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
-    private Entity[][] entities;
+    private ArrayList<ArrayList<Entity>> entities;
     public GamePanel() {
         setBackground(Color.BLACK);
         Timer timer = new Timer(16, new ActionListener() {
@@ -33,15 +35,16 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         if(entities != null) {
             Graphics2D g2d = (Graphics2D) g.create();
-            for (int i = 0; i < entities.length; i++) {
-                for (int j = 0; j < entities[i].length; j++) {
-                    entities[i][j].render(g2d, i*25, j*25);
+            for (int i = 0; i < entities.size(); i++) {
+                for (int j = 0; j < entities.get(i).size(); j++) {
+                    entities.get(i).get(j).render(g2d, j * 25, i * 25);
                 }
             }
             g2d.dispose();
         }
     }
     public void render(Map map){
+        map.setDimensions(Game.getInstance().getMainWindow().getFrame().getSize());
         entities = map.getEntities();
     }
 }

@@ -3,6 +3,8 @@ package com.zaworld.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainWindow {
     private JFrame frame;
@@ -18,7 +20,6 @@ public class MainWindow {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
     }
 
     public JFrame getFrame() {
