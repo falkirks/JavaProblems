@@ -1,12 +1,15 @@
 package com.falkirks.fractions;
 
+import java.lang.reflect.Constructor;
+
 public class Fraction {
     private int numerator;
     private int denominator;
+
     final static char fractionDivider = '/';
     public Fraction(int numerator, int denominator) {
-        setNumerator(numerator);
-        setDenominator(denominator);
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
 
     public Fraction(int numerator) {
@@ -19,15 +22,16 @@ public class Fraction {
         }
         else {
             try {
-                setNumerator(Integer.parseInt(fractionArray[0]));
-                setDenominator(Integer.parseInt(fractionArray[1]));
+                this.numerator = Integer.parseInt(fractionArray[0]);
+                int denominator = Integer.parseInt(fractionArray[1]);
+                checkDenominator(denominator);
+                this.denominator = denominator;
             }
             catch(NumberFormatException e){
                 throw new IllegalArgumentException("Argument 'fractionString' is not a fraction");
             }
         }
     }
-    @Deprecated
     public Fraction(Fraction fraction){
         this(fraction.getNumerator(), fraction.getDenominator());
     }
@@ -44,7 +48,6 @@ public class Fraction {
     public boolean equals(Object obj) {
         if(obj instanceof Fraction){
             Fraction fraction = (Fraction) obj;
-            //TODO improve this to do an LCM
             return (fraction.getDenominator() == denominator && fraction.getNumerator() == numerator) || (fraction.getValue() == getValue());
         }
         return false;
@@ -65,19 +68,35 @@ public class Fraction {
     public Fraction inverse(){
         return new Fraction(denominator, numerator);
     }
-    public Fraction add(Fraction fraction){
-        int lcm = Fraction.lcm(fraction.getDenominator(), denominator);
-        return new Fraction(getNumerator()*(lcm/getDenominator()) + fraction.getNumerator()*(lcm/fraction.getDenominator()), lcm); //TODO make a proper fraction
+    public Fraction add(Object ...objects) throws IllegalArgumentException{
+        Fraction fraction = fetchFraction(objects);
+        if(fraction != null) {
+            int lcm = Fraction.lcm(fraction.getDenominator(), denominator);
+            return new Fraction(getNumerator() * (lcm / getDenominator()) + fraction.getNumerator() * (lcm / fraction.getDenominator()), lcm);
+        }
+        throw new IllegalArgumentException("Argument 'objects' is not a fraction");
     }
-    public Fraction subtract(Fraction fraction){
-        int lcm = Fraction.lcm(fraction.getDenominator(), denominator);
-        return new Fraction(getNumerator()*(lcm/getDenominator()) - fraction.getNumerator()*(lcm/fraction.getDenominator()), lcm); //TODO make a proper fraction
+    public Fraction subtract(Object ...objects) throws IllegalArgumentException{
+        Fraction fraction = fetchFraction(objects);
+        if(fraction != null) {
+            int lcm = Fraction.lcm(fraction.getDenominator(), denominator);
+            return new Fraction(getNumerator()*(lcm/getDenominator()) - fraction.getNumerator()*(lcm/fraction.getDenominator()), lcm); //TODO make a proper fraction
+        }
+        throw new IllegalArgumentException("Argument 'objects' is not a fraction");
     }
-    public Fraction multiply(Fraction fraction){
-        return new Fraction(numerator * fraction.getNumerator(), denominator * fraction.getDenominator());
+    public Fraction multiply(Object ...objects) throws IllegalArgumentException{
+        Fraction fraction = fetchFraction(objects);
+        if(fraction != null) {
+            return new Fraction(numerator * fraction.getNumerator(), denominator * fraction.getDenominator());
+        }
+        throw new IllegalArgumentException("Argument 'objects' is not a fraction");
     }
-    public Fraction divide(Fraction fraction){
-        return multiply(fraction.inverse());
+    public Fraction divide(Object... objects) throws IllegalArgumentException{
+        Fraction fraction = fetchFraction(objects);
+        if(fraction != null) {
+            return multiply(fraction.inverse());
+        }
+        throw new IllegalArgumentException("Argument 'objects' is not a fraction");
     }
     private static int gcf(int a, int b) {
         while (b > 0) {
@@ -93,17 +112,33 @@ public class Fraction {
     public int getNumerator() {
         return numerator;
     }
-    public void setNumerator(int numerator) {
-        this.numerator = numerator;
+    public Fraction setNumerator(int numerator) {
+        return new Fraction(numerator, this.denominator);
     }
 
     public int getDenominator() {
         return denominator;
     }
-    public void setDenominator(int denominator) throws IllegalArgumentException{
+    public Fraction setDenominator(int denominator) throws IllegalArgumentException{
+        checkDenominator(denominator);
+        return new Fraction(this.numerator, denominator);
+    }
+    private void checkDenominator(int denominator) throws IllegalArgumentException{
         if(denominator == 0){
             throw new IllegalArgumentException("Argument 'denominator' is not a denominator.");
         }
-        this.denominator = denominator;
+    }
+    private Fraction fetchFraction(Object[] args) throws IllegalArgumentException{
+        Class[] argTypes = new Class[args.length];
+        for(int i = 0; i < args.length; i++){
+            argTypes[i] = args[i].getClass();
+        }
+        try {
+            Constructor constructor = getClass().getDeclaredConstructor(argTypes);
+            return (Fraction) constructor.newInstance(args);
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 }
