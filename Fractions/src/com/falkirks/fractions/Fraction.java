@@ -3,8 +3,8 @@ package com.falkirks.fractions;
 import java.lang.reflect.Constructor;
 
 public class Fraction {
-    private int numerator;
-    private int denominator;
+    final private int numerator;
+    final private int denominator;
 
     final static char fractionDivider = '/';
     public Fraction(int numerator, int denominator) {
