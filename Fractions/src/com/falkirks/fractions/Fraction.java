@@ -46,11 +46,14 @@ public class Fraction {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Fraction){
-            Fraction fraction = (Fraction) obj;
-            return (fraction.getDenominator() == denominator && fraction.getNumerator() == numerator) || (fraction.getValue() == getValue());
+        return obj instanceof Fraction && isEqual(obj);
+    }
+    public boolean isEqual(Object ...objects) {
+        Fraction fraction = fetchFraction(objects);
+        if(fraction != null){
+            return (fraction.getNumerator() * getDenominator()) == (fraction.getDenominator() * getNumerator());
         }
-        return false;
+        throw new IllegalArgumentException("Argument 'objects' is not a fraction");
     }
     public double toDouble(){
         return this.getValue();
@@ -99,10 +102,11 @@ public class Fraction {
         throw new IllegalArgumentException("Argument 'objects' is not a fraction");
     }
     private static int gcf(int a, int b) {
-        while (b > 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
+        a = Math.abs(a);
+        b = Math.abs(b);
+        while (a != b) {
+            if (a > b) a -= b;
+            else b -= a;
         }
         return a;
     }
