@@ -6,7 +6,7 @@ Jock provides simple and powerful object protection.
 
 ```java
     public class Example{
-        final public Jock awesomeVariable;
+        final public Jock awesomeVariable; // If your field is not final an exception will be thrown, public is applied automatically by Jock
         pubic Example(){
             awesomeVariable = new Jock("value"); //Create jock, you will be granted full access
             awesomeVariable.get(); //Returns value

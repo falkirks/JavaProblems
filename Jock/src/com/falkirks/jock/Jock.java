@@ -90,7 +90,8 @@ public class Jock<ObjectType> {
             if (field.getType() == getClass()) {
                 if (Modifier.isFinal(field.getModifiers())) {
                     field.setAccessible(true);
-                } else {
+                }
+                else {
                     throw new BadJockDeclarationException();
                 }
             }
