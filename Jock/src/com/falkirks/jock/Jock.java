@@ -1,8 +1,12 @@
 package com.falkirks.jock;
 
+import com.falkirks.jock.exception.BadJockDeclarationException;
 import com.falkirks.jock.exception.JockObjectProtectedException;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 
 public class Jock<ObjectType> {
     private ObjectType object;
@@ -12,6 +16,10 @@ public class Jock<ObjectType> {
         this.object = object;
         this.whiteList = new ArrayList<Entry>();
         this.whiteList.add(new Entry(getExternalCaller().getClassName()));
+        try {
+            doJockSetup(Class.forName(getExternalCaller().getClassName()));
+        }
+        catch(ClassNotFoundException e){}
     }
     public ObjectType get() throws JockObjectProtectedException {
         if(cant("get")) throw new JockObjectProtectedException();
@@ -76,5 +84,16 @@ public class Jock<ObjectType> {
             }
         }
         return null;
+    }
+    private void doJockSetup(Class classObject){
+        for (Field field : classObject.getDeclaredFields()) {
+            if (field.getType() == getClass()) {
+                if (Modifier.isFinal(field.getModifiers())) {
+                    field.setAccessible(true);
+                } else {
+                    throw new BadJockDeclarationException();
+                }
+            }
+        }
     }
 }

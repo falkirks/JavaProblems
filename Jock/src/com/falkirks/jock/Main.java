@@ -3,8 +3,8 @@ package com.falkirks.jock;
 import com.falkirks.jock.exception.JockObjectProtectedException;
 
 public class Main {
-
     public static void main(String[] args) {
+        new Example("Hello world.").setStringJock(null);
 
         Jock<Integer> jock = new Jock<Integer>(1);
         try {

@@ -14,8 +14,6 @@ Jock provides simple and powerful object protection.
 
             awesomeVariable.allow(new Entry("(.*)", false, { "read" })); // Allow everyone to read, false means that we opt out of checking the super class
             awesomeVariable.allow(new Entry(this, true)); // By default Jock acts as private, this will make it more like a protected value
-
-
         }
     }
 ```
