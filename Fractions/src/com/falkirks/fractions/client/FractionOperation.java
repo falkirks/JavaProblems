@@ -12,6 +12,7 @@ public class FractionOperation {
     final static public int SUBTRACT = 1;
     final static public int MULTIPLY = 2;
     final static public int DIVIDE = 3;
+
     private int operation;
     public FractionOperation(int operation){
         this.operation = operation;
@@ -30,6 +31,26 @@ public class FractionOperation {
                 return null;
         }
     }
+    /*
+        This method is for tests and thus avoids use of Fraction
+     */
+    public float apply(float a, float b){
+        switch(this.operation){
+            case FractionOperation.ADD:
+                a += b;
+                break;
+            case FractionOperation.SUBTRACT:
+                a -= b;
+                break;
+            case FractionOperation.MULTIPLY:
+                a *= b;
+                break;
+            case FractionOperation.DIVIDE:
+                a /= b;
+                break;
+        }
+        return a;
+    }
     public String toString(){
         switch(this.operation){
             case FractionOperation.ADD:
@@ -46,5 +67,9 @@ public class FractionOperation {
     }
     public static FractionOperation nextOperation(){
         return new FractionOperation(operatorRandom.nextInt((FractionOperation.DIVIDE - FractionOperation.ADD) + 1) + FractionOperation.ADD);
+    }
+
+    public int getOperation() {
+        return operation;
     }
 }

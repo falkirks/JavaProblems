@@ -9,7 +9,10 @@ import java.util.ArrayList;
 
 public class FractionClient {
     private ArrayList<FractionQuestion> questions;
-    BufferedReader br;
+    private BufferedReader br;
+
+    public static final boolean IS_DEBUG = false;
+
     public FractionClient() {
         questions = new ArrayList<FractionQuestion>();
         br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,21 +25,27 @@ public class FractionClient {
         }
     }
     public void askQuestion(FractionQuestion question){
-        System.out.println(question);
-        System.out.println("Answer is: " + question.getCorrectAnswer()); //Testing code
+        System.out.print(question + " = ");
+        if(IS_DEBUG) System.out.println(question.getCorrectAnswer()); //Testing code
         try {
             Fraction fraction = new Fraction(br.readLine());
             if(question.checkAnswer(fraction)){
                 System.out.println("Correct!");
             }
             else{
-                System.out.println("Incorrect, the correct answer was " + question.getCorrectAnswer());
+                System.out.println("Incorrect, the correct answer is " + question.getCorrectAnswer());
             }
-            questions.add(question);
 
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException e){
+            System.out.println("Your computer appears to be screwed up. For having such a sucky input pipe, you get a free point.");
+            question.setCorrect();
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Ouch, you should learn how to type a fraction.");
+        }
+        finally {
+            questions.add(question);
         }
     }
     public void printScore(){
