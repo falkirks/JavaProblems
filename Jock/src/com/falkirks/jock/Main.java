@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Jock jock = new Jock(1);
+        Jock<Integer> jock = new Jock<Integer>(1);
         try {
             Entry entry = new Entry("(.*)");
             entry.grantNode("read");

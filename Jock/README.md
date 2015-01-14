@@ -3,6 +3,7 @@ Jock
 ###### Because visibility is important...
 
 Jock provides simple and powerful object protection.
+
 ```java
     public class Example{
         final public Jock awesomeVariable;

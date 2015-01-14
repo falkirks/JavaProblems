@@ -4,23 +4,22 @@ import com.falkirks.jock.exception.JockObjectProtectedException;
 
 import java.util.ArrayList;
 
-public class Jock {
-    private Object object;
+public class Jock<ObjectType> {
+    private ObjectType object;
     private ArrayList<Entry> whiteList;
 
-    public Jock(Object object){
+    public Jock(ObjectType object){
         this.object = object;
         this.whiteList = new ArrayList<Entry>();
         this.whiteList.add(new Entry(getExternalCaller().getClassName()));
     }
-    public Object get() throws JockObjectProtectedException {
+    public ObjectType get() throws JockObjectProtectedException {
         if(cant("get")) throw new JockObjectProtectedException();
 
         return this.object;
     }
-    public void set(Object object) throws JockObjectProtectedException{
+    public void set(ObjectType object) throws JockObjectProtectedException{
         if(cant("set")) throw new JockObjectProtectedException();
-        //TODO maybe enforce type
         this.object = object;
     }
     public boolean can(String action){
