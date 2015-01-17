@@ -16,7 +16,6 @@ public class Entry {
     public Entry(Object entry, boolean allowChildren, ArrayList<String> accessNodes) {
         this.accessNodes = accessNodes;
         this.allowChildren = allowChildren;
-
         isRegex = false;
         if(entry instanceof String) {
             this.entry = (String) entry;

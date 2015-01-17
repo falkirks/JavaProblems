@@ -6,7 +6,6 @@ import com.falkirks.jock.exception.JockObjectProtectedException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 
 public class Jock<ObjectType> {
     private ObjectType object;
