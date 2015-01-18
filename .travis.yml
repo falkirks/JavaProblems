@@ -1,4 +1,5 @@
 ---
 language: java
-env: [ ]
+env:
+  - PROJECT_DIR=Hangman
 script: 'cd $PROJECT_DIR && ant all'
