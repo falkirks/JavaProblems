@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 public class Main {
 
     public static void main(String[] args) {
-        try {
+        /*try {
             FilesystemLengthStore lengthStore = new FilesystemLengthStore();
             lengthStore.printStats();
             DodgingWord dodgingWord = lengthStore.nextDodgingWord();
@@ -30,15 +30,15 @@ public class Main {
         }
         catch (Exception e){
             e.printStackTrace();
-        }
-        /*MainWindow mainWindow = new MainWindow();
+        }*/
+        MainWindow mainWindow = new MainWindow();
         try {
             Thread.sleep(5000);
         }
         catch(InterruptedException e){
 
         }
-        mainWindow.spawn();*/
+        mainWindow.spawn();
     }
     public static void printGuessData(char[] guessData){
         for(int i = 0; i < guessData.length; i++){

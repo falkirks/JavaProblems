@@ -8,4 +8,4 @@ The cheating algorithm is fast and effective. It cheats by letter only and not b
 
 ### The GUI
 
-Hangman is bundled with standard GUI components in the `gui` package. For even greater convenience, Hangman comes with many game "modes" which act as clients to the cheating player, one of these utilizes the GUI package.
+Hangman is bundled with standard GUI components in the `gui` package. For even greater convenience, Hangman comes with game "modes" which act as clients to the cheating player, one of these utilizes the GUI package.

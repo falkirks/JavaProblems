@@ -39,7 +39,7 @@ public class DodgingWord implements GuessableWord{
             futureStores.put((char) i, executor.submit(new LetterDiffTask((char) i, currentStore)));
         }
     }
-    public void removeLetter(char letter){
+    public boolean removeLetter(char letter){
         if(isDodging) {
             try {
                 if (futureStores.get(letter).get().count() == 0) {
@@ -62,9 +62,10 @@ public class DodgingWord implements GuessableWord{
         }
         else{
             if(fixedWord != null){
-                fixedWord.removeLetter(letter);
+                return fixedWord.removeLetter(letter);
             }
         }
+        return false;
     }
     public char[] getGuessData(){
         if(isDodging) return new char[currentStore.getWord().length()];

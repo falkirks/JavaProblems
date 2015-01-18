@@ -20,12 +20,15 @@ public class FixedWord implements GuessableWord{
         return word.equals(new String(guess));
     }
 
-    public void removeLetter(char letter){
+    public boolean removeLetter(char letter){
+        boolean ret = false;
         for(int i = 0; i < word.length(); i++){
             if(word.charAt(i) == letter){
                 guess[i] = letter;
+                ret = true;
             }
         }
+        return ret;
     }
     private static String repeat(String string, int times){
         String out = "";
