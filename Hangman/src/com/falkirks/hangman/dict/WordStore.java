@@ -34,6 +34,14 @@ public class WordStore {
     public Iterator<String> getIterator(){
         return words.iterator();
     }
+    /*
+        This method
+     */
+    public String getWord(){
+        if(words.size() > 0)
+            return words.get(0);
+        else return null;
+    }
     public void addAll(ArrayList<String> data){
         words.addAll(data);
     }
