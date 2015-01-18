@@ -5,4 +5,5 @@ env:
   - PROJECT_DIR=BoxMaker
   - PROJECT_DIR=1
   - PROJECT_DIR=Exam2Questions
+  - PROJECT_DIR=Hangman
 script: 'cd $PROJECT_DIR && ant all'
