@@ -37,15 +37,4 @@ public class Main {
         }
         System.out.println();
     }
-    public static double halton(int index, int base){
-        double result = 0;
-        double f = 1/base;
-        double i = index;
-        while (i > 0){
-            result += f * (i % base);
-            i = Math.floor(i / base);
-            f /= base;
-        }
-        return result;
-    }
 }
