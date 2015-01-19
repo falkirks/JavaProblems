@@ -1,8 +1,11 @@
 package com.falkirks.hangman;
 
 import com.falkirks.hangman.dict.FilesystemLengthStore;
+import com.falkirks.hangman.dict.LimitedGuessable;
 import com.falkirks.hangman.dict.RemoteLengthStore;
 import com.falkirks.hangman.dict.dodger.DodgingWord;
+import com.falkirks.hangman.game.ConsoleGame;
+import com.falkirks.hangman.game.SwingGame;
 import com.falkirks.hangman.gui.MainWindow;
 
 import java.io.BufferedReader;
@@ -12,25 +15,8 @@ import java.io.InputStreamReader;
 public class Main {
 
     public static void main(String[] args) {
-        /*try {
-            FilesystemLengthStore lengthStore = new FilesystemLengthStore();
-            lengthStore.printStats();
-            DodgingWord dodgingWord = lengthStore.nextDodgingWord();
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println(dodgingWord.getWordsLeft());
-            while (!dodgingWord.isGuessed()) {
-                String input = br.readLine();
-                if(input.length() > 0) {
-                    dodgingWord.removeLetter(input.charAt(0));
-                    System.out.println(dodgingWord.getWordsLeft());
-                    printGuessData(dodgingWord.getGuessData());
-                }
-            }
-            dodgingWord.shutdown();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }*/
+        (new SwingGame()).start();
+        /*
         MainWindow mainWindow = new MainWindow();
         try {
             Thread.sleep(5000);
@@ -38,7 +24,7 @@ public class Main {
         catch(InterruptedException e){
 
         }
-        mainWindow.spawn();
+        mainWindow.spawn();*/
     }
     public static void printGuessData(char[] guessData){
         for(int i = 0; i < guessData.length; i++){

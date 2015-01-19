@@ -4,23 +4,29 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WordPane extends JPanel {
-    private int wordLength;
+    private char[] guessData = new char[0];
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", 0, 40));
-        g.drawString(getWordBlanks(), 30, 50);
+        g.drawString(getParsedGuessData(), 30, 50);
 
     }
-    public void setWordLength(int wordLength) {
-        this.wordLength = wordLength;
-    }
-    private String getWordBlanks(){
+    public String getParsedGuessData(){
         String string = "";
-        for(int i = 1; i <= wordLength; i++){
-            string += "_ ";
+        for(int i = 0; i < guessData.length; i++){
+            if(guessData[i] == 0){
+                string += "_ ";
+            }
+            else{
+                string += guessData[i] + " ";
+            }
         }
         return string;
+    }
+
+    public void setGuessData(char[] guessData) {
+        this.guessData = guessData;
     }
 }

@@ -12,6 +12,8 @@ import java.util.concurrent.Future;
 /*
     This class wraps around FixedWord and allows
     the hangman to cheat.
+
+    NOTE: shutdown() must be called to allow disposal of the instance.
  */
 public class DodgingWord implements GuessableWord{
     private WordStore currentStore;
@@ -43,10 +45,10 @@ public class DodgingWord implements GuessableWord{
         if(isDodging) {
             try {
                 if (futureStores.get(letter).get().count() == 0) {
-                    System.out.println("Locked.");
-                    isDodging = false;
+                    System.out.println("Locked to " + currentStore.getWord());
                     fixedWord = new FixedWord(currentStore.getWord());
                     fixedWord.removeLetter(letter);
+                    isDodging = false;
                 }
                 else {
                     currentStore = futureStores.get(letter).get();

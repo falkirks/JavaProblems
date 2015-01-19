@@ -18,7 +18,6 @@ public class MainWindow extends JFrame{
         wordPane = new WordPane();
         wordPane.setBounds(200, 300, 400, 100);
         wordPane.setBackground(Color.CYAN);
-        wordPane.setWordLength(5);
 
         guessedPane = new GuessedPane();
         guessedPane.setBounds(200, 0, 400, 300);
