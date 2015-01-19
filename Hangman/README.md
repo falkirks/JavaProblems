@@ -8,4 +8,13 @@ The cheating algorithm is fast and effective. It cheats by letter only and not b
 
 ### The GUI
 
-Hangman is bundled with standard GUI components in the `gui` package. For even greater convenience, Hangman comes with game "modes" which act as clients to the cheating player, one of these utilizes the GUI package.
+Hangman is bundled with standard GUI components in the `gui` package.
+
+* `GuessedPane` - list of guessed Characters
+* `HangmanPane` - the stick figure that is drawn with every new guess.
+* `LoadingPane`- simple loading screen
+* `MainWindow` - encapsulates all the panels into a 600*400 frame
+* `WordPane` - word being guessed, rendered from a char array where null (0) becomes '_'
+
+### Game classes
+Since the game is written in a very modular fashion, it is not bound to a specific implementation. Hangman comes with a `ConsoleGame` and `SwingGame` (uses GUI components) but more clients are easy to add and just run on a tick based system.
