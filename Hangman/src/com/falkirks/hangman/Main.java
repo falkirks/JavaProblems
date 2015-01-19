@@ -28,7 +28,7 @@ public class Main {
     }
     public static void printGuessData(char[] guessData){
         for(int i = 0; i < guessData.length; i++){
-            if(guessData[i] == '\u0000'){
+            if(guessData[i] == 0){
                 System.out.print(" _ ");
             }
             else{
@@ -36,5 +36,16 @@ public class Main {
             }
         }
         System.out.println();
+    }
+    public static double halton(int index, int base){
+        double result = 0;
+        double f = 1/base;
+        double i = index;
+        while (i > 0){
+            result += f * (i % base);
+            i = Math.floor(i / base);
+            f /= base;
+        }
+        return result;
     }
 }

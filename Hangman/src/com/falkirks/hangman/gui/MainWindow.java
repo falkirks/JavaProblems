@@ -11,6 +11,7 @@ public class MainWindow extends JFrame{
     private GuessedPane guessedPane;
 
     public MainWindow(){
+        setLayout(null);
         hangmanPane = new HangmanPane();
         hangmanPane.setBounds(0, 0, 200, 400);
         hangmanPane.setBackground(Color.RED);

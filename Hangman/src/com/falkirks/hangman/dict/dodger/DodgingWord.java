@@ -44,18 +44,19 @@ public class DodgingWord implements GuessableWord{
     public boolean removeLetter(char letter){
         if(isDodging) {
             try {
-                if (futureStores.get(letter).get().count() == 0) {
-                    System.out.println("Locked to " + currentStore.getWord());
-                    fixedWord = new FixedWord(currentStore.getWord());
-                    fixedWord.removeLetter(letter);
-                    isDodging = false;
+                if(futureStores.containsKey(letter)) {
+                    if (futureStores.get(letter).get().count() == 0) {
+                        System.out.println("Locked to " + currentStore.getWord());
+                        fixedWord = new FixedWord(currentStore.getWord());
+                        fixedWord.removeLetter(letter);
+                        isDodging = false;
+                    } else {
+                        currentStore = futureStores.get(letter).get();
+                    }
+                    iterationId++;
+                    futureStores.clear();
+                    doNextIteration();
                 }
-                else {
-                    currentStore = futureStores.get(letter).get();
-                }
-                iterationId++;
-                futureStores.clear();
-                doNextIteration();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
