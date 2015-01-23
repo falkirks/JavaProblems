@@ -1,4 +1,4 @@
-JavaProblems [![Build Status](https://magnum.travis-ci.com/Falkirks/JavaProblems.svg?token=4QK2uxFbcdYPyhixDggt&branch=master)](https://magnum.travis-ci.com/Falkirks/JavaProblems)
+JavaProblems [![Build Status](https://travis-ci.org/Falkirks/JavaProblems.svg)](https://travis-ci.org/Falkirks/JavaProblems)
 =========
 
 This is my personal repository for storing school programming projects.
