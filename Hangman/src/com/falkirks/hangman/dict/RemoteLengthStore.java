@@ -7,7 +7,12 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
+/*
+    Loads dictionary from an external source. The default location
+    was provided for use with the project and tends to be harder
+    than the built in words file as it includes acronyms which
+    don't have vowels.
+ */
 public class RemoteLengthStore extends LengthStore{
     public final static String REMOTE_URL = "http://lordbyng.net/pelletier/wp-content/uploads/2012/06/words.txt";
     @Override

@@ -7,6 +7,7 @@ import com.falkirks.hangman.exception.DictLoadingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,7 +20,10 @@ abstract public class LengthStore {
         if(!load()) throw new DictLoadingException();
     }
     public DodgingWord nextDodgingWord(){
-        return new DodgingWord(get(4));
+        return new DodgingWord(getNextStore());
+    }
+    public FixedWord nextFixedWord(){
+        return new FixedWord(getNextStore().getWord());
     }
     public abstract boolean load();
     public boolean reload(){
@@ -91,6 +95,15 @@ abstract public class LengthStore {
         if(has(length))
             return new WordStore(dictionaryData.get(length).getWords());
         return null;
+    }
+    public WordStore getNextStore(){
+        int[] wordLengths = new int[dictionaryData.keySet().size()];
+        int i = 0;
+        for(int length : dictionaryData.keySet()){
+            wordLengths[i] = length;
+            i++;
+        }
+        return get(wordLengths[(int) (Math.random() * wordLengths.length)]);
     }
     public void printStats(){
         for (Map.Entry<Integer, WordStore> entry : dictionaryData.entrySet()) {

@@ -28,8 +28,9 @@ public class LimitedGuessable implements GuessableWord {
         if(isGuessable()) {
             if(!previousGuesses.contains(letter)) {
                 previousGuesses.add(letter);
-                currentGuessId++;
-                return guessableWord.removeLetter(letter);
+                boolean result = guessableWord.removeLetter(letter);
+                if(!result) currentGuessId++;
+                return result;
             }
         }
         return false;
@@ -58,5 +59,13 @@ public class LimitedGuessable implements GuessableWord {
     }
     public void shutdown(){
         if(guessableWord instanceof DodgingWord) ((DodgingWord) guessableWord).shutdown();
+    }
+
+    public GuessableWord getGuessableWord() {
+        return guessableWord;
+    }
+
+    public void setGuessableWord(GuessableWord guessableWord) {
+        this.guessableWord = guessableWord;
     }
 }

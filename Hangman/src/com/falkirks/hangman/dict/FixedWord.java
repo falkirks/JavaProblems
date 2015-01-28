@@ -36,5 +36,4 @@ public class FixedWord implements GuessableWord{
             out += string;
         return out;
     }
-
 }

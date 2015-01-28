@@ -47,9 +47,10 @@ public class DodgingWord implements GuessableWord{
                 if(futureStores.containsKey(letter)) {
                     if (futureStores.get(letter).get().count() == 0) {
                         System.out.println("Locked to " + currentStore.getWord());
-                        fixedWord = new FixedWord(currentStore.getWord());
-                        fixedWord.removeLetter(letter);
+                        fixedWord = new FixedWord(currentStore.getWord()); //TODO remove on production
+                        boolean result = fixedWord.removeLetter(letter); //TODO debug
                         isDodging = false;
+                        return result;
                     } else {
                         currentStore = futureStores.get(letter).get();
                     }
@@ -78,6 +79,9 @@ public class DodgingWord implements GuessableWord{
         executor.shutdown();
     }
 
+    public WordStore getCurrentStore() {
+        return currentStore;
+    }
     public int getIterationId() {
         return iterationId;
     }

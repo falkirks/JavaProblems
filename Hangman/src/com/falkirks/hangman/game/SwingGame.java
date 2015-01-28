@@ -1,21 +1,28 @@
 package com.falkirks.hangman.game;
 
 
+import com.falkirks.hangman.Main;
 import com.falkirks.hangman.dict.FilesystemLengthStore;
 import com.falkirks.hangman.dict.LengthStore;
 import com.falkirks.hangman.dict.LimitedGuessable;
+import com.falkirks.hangman.dict.RemoteLengthStore;
 import com.falkirks.hangman.gui.MainWindow;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class SwingGame extends StandardGame implements KeyListener{
-    private LengthStore lengthStore;
-    private LimitedGuessable currentWord;
+    protected LengthStore lengthStore;
+    protected LimitedGuessable currentWord;
     private MainWindow mainWindow;
     private ArrayList<Character> guessQueue;
+
+    private PrintStream oldPrintStream;
 
     @Override
     public void init() {
@@ -24,12 +31,14 @@ public class SwingGame extends StandardGame implements KeyListener{
         lengthStore = new FilesystemLengthStore();
         lengthStore.printStats();
 
-        currentWord = new LimitedGuessable(lengthStore.nextDodgingWord(), 50);
+        currentWord = new LimitedGuessable(lengthStore.nextDodgingWord(), 50); //TODO limit top 6 on production
 
         mainWindow.getContentPane().addKeyListener(this);
         mainWindow.addKeyListener(this);
         mainWindow.spawn();
-
+        oldPrintStream = System.out;
+        System.out.println("### Output is now redirected ###");
+        System.setOut(new PrintStream(new SwingOutputStream()));
     }
 
     @Override
@@ -44,11 +53,11 @@ public class SwingGame extends StandardGame implements KeyListener{
         mainWindow.getGuessedPane().setPreviousGuesses(currentWord.getPreviousGuesses());
 
         if(!currentWord.isGuessable()){
-            JOptionPane.showMessageDialog(mainWindow, "Sorry, you lose. Better luck next time.");
+            System.out.println("Sorry, you lose. Better luck next time.");
             currentWord = new LimitedGuessable(lengthStore.nextDodgingWord(), 6);
         }
         else if(currentWord.isGuessed()){
-            JOptionPane.showMessageDialog(mainWindow, "Yay! You win.");
+            System.out.println("Yay! You win.");
             currentWord = new LimitedGuessable(lengthStore.nextDodgingWord(), 6);
         }
 
@@ -58,6 +67,8 @@ public class SwingGame extends StandardGame implements KeyListener{
 
     @Override
     public void stop() {
+        System.setOut(oldPrintStream);
+        System.out.println("### Output redirect removed ###");
         currentWord.shutdown();
     }
 
@@ -67,7 +78,6 @@ public class SwingGame extends StandardGame implements KeyListener{
             guessQueue.add(Character.toLowerCase(e.getKeyChar()));
         }
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
 
@@ -77,4 +87,19 @@ public class SwingGame extends StandardGame implements KeyListener{
     public void keyReleased(KeyEvent e) {
 
     }
+    private class SwingOutputStream extends OutputStream{
+        private String output = "";
+        @Override
+        public void write(int b) throws IOException {
+            char charToWrite = (char) b;
+            if(b == '\n'){
+                JOptionPane.showMessageDialog(mainWindow, output);
+                output = "";
+            }
+            else{
+                output += charToWrite;
+            }
+        }
+    }
 }
+

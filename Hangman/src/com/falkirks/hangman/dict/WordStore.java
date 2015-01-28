@@ -34,9 +34,7 @@ public class WordStore {
     public Iterator<String> getIterator(){
         return words.iterator();
     }
-    /*
-        This method
-     */
+    //TODO fix this
     public String getWord(){
         if(words.size() > 0)
             return words.get(0);
