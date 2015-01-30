@@ -28,7 +28,7 @@ public class SwingGame extends StandardGame implements KeyListener{
     public void init() {
         guessQueue = new ArrayList<Character>();
         mainWindow = new MainWindow();
-        lengthStore = new FilesystemLengthStore();
+        lengthStore = new RemoteLengthStore();
         lengthStore.printStats();
 
         currentWord = new LimitedGuessable(lengthStore.nextDodgingWord(), 50); //TODO limit top 6 on production

@@ -18,3 +18,10 @@ Hangman is bundled with standard GUI components in the `gui` package.
 
 ### Game classes
 Since the game is written in a very modular fashion, it is not bound to a specific implementation. Hangman comes with a `ConsoleGame` and `SwingGame` (uses GUI components) but more clients are easy to add and just run on a tick based system.
+
+###TODO
+* Word scoring algorithm
+* Phrases (maybe web API?)
+* Multilayer
+    *  2 Player vs. AI
+    * Player vs. Player (has to pick word but can change it)

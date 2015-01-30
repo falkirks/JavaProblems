@@ -14,7 +14,7 @@ import java.util.ArrayList;
     don't have vowels.
  */
 public class RemoteLengthStore extends LengthStore{
-    public final static String REMOTE_URL = "http://lordbyng.net/pelletier/wp-content/uploads/2012/06/words.txt";
+    public final static String REMOTE_URL = "http://www.cs.duke.edu/~ola/ap/linuxwords";
     @Override
     public boolean load() {
         try {
