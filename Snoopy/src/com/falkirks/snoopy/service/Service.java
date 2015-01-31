@@ -29,5 +29,8 @@ abstract public class Service {
             if (socket != null) try { socket.close(); } catch(IOException e) {}
         }
     }
+    public String getName(){
+        return this.getClass().getSimpleName();
+    }
     abstract boolean runExtendedTests();
 }

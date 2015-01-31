@@ -1,5 +1,7 @@
 package com.falkirks.snoopy.lan;
 
+import com.falkirks.snoopy.service.Service;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.InetAddress;
@@ -14,6 +16,23 @@ import java.util.concurrent.Future;
 public class Subnet {
     private ArrayList<SubnetPeer> subnetPeers;
 
+    public ArrayList<SubnetPeer> getSubnetPeers() {
+        return subnetPeers;
+    }
+
+    public Subnet(String subnet) {
+        subnetPeers = findHosts(subnet);
+    }
+    public void testAll(Service service){
+        for(SubnetPeer peer: subnetPeers){
+            peer.testService(service);
+        }
+    }
+    public void testAll(Class<? extends Service> serviceClass){
+        for(SubnetPeer peer: subnetPeers){
+            peer.testService(serviceClass);
+        }
+    }
     public static ArrayList<SubnetPeer> findHosts(String subnet){
         HashMap<String, Future<Boolean>> futureList = new HashMap<String, Future<Boolean>>();
         ExecutorService executor = Executors.newFixedThreadPool(50);
@@ -40,5 +59,6 @@ public class Subnet {
         }
         return peers;
     }
+
 
 }
