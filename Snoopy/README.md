@@ -5,4 +5,4 @@ Snoopy is simple service detection program. Snoopy isn't your grandma's port sca
 ### What's the point?
 The main advantage of Snoopy is ease of use. There is no need to try and find what services are running, Snoopy does that for you. Another distinct advantage is the ability to scan for UDP based services. Snoopy does this by using the appropriate UDP protocol and asserting whether the remote supports it.
 
-![Screenshot](/assets/screenshot.png)
+![Screenshot](assets/screenshot.png)
