@@ -44,7 +44,7 @@ public class SnoopyGUI {
         frame.setTitle("Snoopy");
         frame.setSize(400, 300);
         frame.setBackground(Color.gray);
-
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         topPanel.setLayout( new BorderLayout() );
         frame.getContentPane().add( topPanel );
         topPanel.add(new JLabel("Loading subnet...", null, JLabel.CENTER));

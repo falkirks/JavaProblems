@@ -1,10 +1,10 @@
 package com.falkirks.snoopy.service;
 
-@ReliablePorts(ports = {80, 8080, 7000, 3000, 8000})
-public class Website extends Service{
+
+@ReliablePorts(ports = {22})
+public class SSH extends Service {
     @Override
     boolean runExtendedTests() {
         return true;
     }
 }
-

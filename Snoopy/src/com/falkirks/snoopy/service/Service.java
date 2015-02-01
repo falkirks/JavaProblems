@@ -8,13 +8,16 @@ import java.net.Socket;
 
 abstract public class Service {
     public boolean runTest(SubnetPeer subnetPeer){
-        ServicePort servicePort = this.getClass().getAnnotation(ServicePort.class);
-        for(int port : servicePort.ports()){
-            if(testPort(subnetPeer.getAddress(), port)){
-                return runExtendedTests();
+        ReliablePorts reliablePorts = this.getClass().getAnnotation(ReliablePorts.class);
+        if(reliablePorts != null) {
+            for (int port : reliablePorts.ports()) {
+                if (testPort(subnetPeer.getAddress(), port)) {
+                    return runExtendedTests();
+                }
             }
+            return false;
         }
-        return false;
+        return true;
     }
     protected boolean testPort(String address, int port){
         Socket socket = null;
