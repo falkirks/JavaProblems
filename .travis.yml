@@ -1,7 +1,6 @@
 ---
 language: java
 env:
-  - PROJECT_DIR=Hangman
-  - PROJECT_DIR=Snoopy
-  - PROJECT_DIR=TicTacToe
+  0: PROJECT_DIR=Hangman
+  2: PROJECT_DIR=TicTacToe
 script: 'cd $PROJECT_DIR && ant all'
