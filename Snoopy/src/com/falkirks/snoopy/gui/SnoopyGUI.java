@@ -23,7 +23,7 @@ public class SnoopyGUI {
 
         topPanel.removeAll();
         JList<SubnetPeer> listbox = new JList<SubnetPeer>( peerArray );
-        topPanel.add( listbox, BorderLayout.CENTER );
+        topPanel.add( new JScrollPane(listbox), BorderLayout.CENTER );
         frame.revalidate();
         frame.repaint();
     }

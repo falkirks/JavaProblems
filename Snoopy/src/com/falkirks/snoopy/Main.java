@@ -22,7 +22,7 @@ public class Main {
         }*/
 
         SnoopyGUI snoopyGUI = new SnoopyGUI();
-        Subnet subnet = new Subnet("192.168.1");
+        Subnet subnet = new Subnet("10.32.47");
 
         snoopyGUI.addPeers(subnet.getSubnetPeers());
 

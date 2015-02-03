@@ -17,6 +17,10 @@ public class SubnetPeer {
         return address;
     }
 
+    public ArrayList<Service> getServices() {
+        return services;
+    }
+
     public boolean testService(Service service){
         if(service.runTest(this)){
             services.add(service);
