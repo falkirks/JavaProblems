@@ -4,6 +4,7 @@ package com.falkirks.snoopy;
 import com.falkirks.snoopy.gui.SnoopyGUI;
 import com.falkirks.snoopy.lan.Subnet;
 import com.falkirks.snoopy.service.Service;
+import org.apache.commons.net.util.SubnetUtils;
 import org.reflections.Reflections;
 
 import java.net.*;
@@ -14,15 +15,9 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) throws UnknownHostException, SocketException{
-        /*InetAddress localHost = Inet4Address.getLocalHost();
-        NetworkInterface networkInterface = NetworkInterface.getByInetAddress(localHost);
-
-        for (InterfaceAddress address : networkInterface.getInterfaceAddresses()) {
-            System.out.println(address + " " + address.getNetworkPrefixLength());
-        }*/
 
         SnoopyGUI snoopyGUI = new SnoopyGUI();
-        Subnet subnet = new Subnet("10.32.47");
+        Subnet subnet = new Subnet();
 
         snoopyGUI.addPeers(subnet.getSubnetPeers());
 
@@ -32,5 +27,18 @@ public class Main {
             subnet.testAll(serviceClass);
             snoopyGUI.updatePeers();
         }
+    }
+    public static String subnetStringFromMask(int subnetMask){
+        String out = "";
+        for(int i = 0; i < 4; i++){
+            if(subnetMask >= 8){
+                out += ".255";
+            }
+            else{
+                out += ".0";
+            }
+            subnetMask = subnetMask-8;
+        }
+        return out.substring(1);
     }
 }

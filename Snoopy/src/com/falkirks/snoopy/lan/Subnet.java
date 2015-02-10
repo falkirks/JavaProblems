@@ -1,11 +1,11 @@
 package com.falkirks.snoopy.lan;
 
 import com.falkirks.snoopy.service.Service;
+import org.apache.commons.net.util.SubnetUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -20,8 +20,8 @@ public class Subnet {
         return subnetPeers;
     }
 
-    public Subnet(String subnet) {
-        subnetPeers = findHosts(subnet);
+    public Subnet() {
+        subnetPeers = findHosts();
     }
     public void testAll(Service service){
         for(SubnetPeer peer: subnetPeers){
@@ -33,32 +33,58 @@ public class Subnet {
             peer.testService(serviceClass);
         }
     }
-    public static ArrayList<SubnetPeer> findHosts(String subnet){
-        HashMap<String, Future<Boolean>> futureList = new HashMap<String, Future<Boolean>>();
-        ExecutorService executor = Executors.newFixedThreadPool(50);
-        for (int i = 1; i < 254; i++){
-            String host = subnet + "." + i;
-            futureList.put(host, executor.submit(new PeerPingTask(host)));
-        }
-        executor.shutdown();
-        while (!executor.isTerminated());
+    public static ArrayList<SubnetPeer> findHosts(){
+        try {
+            HashMap<String, Future<Boolean>> futureList = new HashMap<String, Future<Boolean>>();
+            ExecutorService executor = Executors.newFixedThreadPool(100);
+            InetAddress localHost = Inet4Address.getLocalHost();
+            NetworkInterface networkInterface = NetworkInterface.getByInetAddress(localHost);
 
-        ArrayList<SubnetPeer> peers = new ArrayList<SubnetPeer>();
-        for (int i = 1; i < 254; i++){
-            try {
-                if (futureList.get(subnet + "." + i).get()) {
-                    peers.add(new SubnetPeer(subnet + "." + i));
+            String[] addresses = new String[0];
+
+            for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+                if (!subnetStringFromMask(interfaceAddress.getNetworkPrefixLength()).equals("255.255.255.255")) {
+                    SubnetUtils utils = new SubnetUtils(Inet4Address.getLocalHost().getHostAddress(), subnetStringFromMask(interfaceAddress.getNetworkPrefixLength()));
+                    addresses = utils.getInfo().getAllAddresses();
                 }
             }
-            catch (ExecutionException e){
-                e.printStackTrace();
+            for (String address: addresses){
+                futureList.put(address, executor.submit(new PeerPingTask(address)));
             }
-            catch(InterruptedException e){
-                e.printStackTrace();
-            }
-        }
-        return peers;
-    }
+            executor.shutdown();
+            while (!executor.isTerminated()) ;
 
+            ArrayList<SubnetPeer> peers = new ArrayList<SubnetPeer>();
+            for (String address: addresses){
+                try {
+                    if (futureList.get(address).get()) {
+                        peers.add(new SubnetPeer(address));
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return peers;
+        }
+        catch(Exception e){
+            return null;
+        }
+
+    }
+    public static String subnetStringFromMask(int subnetMask){
+        String out = "";
+        for(int i = 0; i < 4; i++){
+            if(subnetMask >= 8){
+                out += ".255";
+            }
+            else{
+                out += ".0";
+            }
+            subnetMask = subnetMask-8;
+        }
+        return out.substring(1);
+    }
 
 }
