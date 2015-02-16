@@ -34,6 +34,7 @@ public class MainWindow extends JFrame{
         timer.setCoalesce(true);
         timer.start();;
         setTitle("Hangman");
+        //setAutoRequestFocus(true);
         setSize(600, 400);
         //setIconImage((new ImageIcon(getClass().getClassLoader().getResource("icon.png"))).getImage());
         setResizable(false);
