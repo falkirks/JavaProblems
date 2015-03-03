@@ -10,6 +10,14 @@ public class DeckTester {
 	 *	@param args is not used.
 	 */
 	public static void main(String[] args) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+		Deck deck = new Deck(
+				new String[]{"ten", "nine", "eigth", "two"},
+				new String[]{"diamonds", "clubs", "spades", "spades"},
+				new int[]{10, 9, 8, 2}
+		);
+		System.out.println(deck.toString());
+		deck.shuffle();
+		System.out.println(deck.toString());
+
 	}
 }

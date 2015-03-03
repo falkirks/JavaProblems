@@ -1,5 +1,6 @@
 package com.falkirks.elevens;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class ElevensBoard extends Board {
 	/**
 	 * Flag used to control debugging print statements.
 	 */
-	private static final boolean I_AM_DEBUGGING = false;
+	private static final boolean I_AM_DEBUGGING = true;
 
 
 	/**
@@ -55,7 +56,11 @@ public class ElevensBoard extends Board {
 	 */
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		int points = 0;
+		for (int i = 0; i < selectedCards.size(); i++){
+			points += cardAt(selectedCards.get(i)).pointValue();
+		}
+		return (points == 11 && selectedCards.size() == 2) || (points == 0 && selectedCards.size() == 3);
 	}
 
 	/**
@@ -68,30 +73,21 @@ public class ElevensBoard extends Board {
 	 */
 	@Override
 	public boolean anotherPlayIsPossible() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-	}
+		int faceCards = 0;
 
-	/**
-	 * Check for an 11-pair in the selected cards.
-	 * @param selectedCards selects a subset of this board.  It is list
-	 *                      of indexes into this board that are searched
-	 *                      to find an 11-pair.
-	 * @return true if the board entries in selectedCards
-	 *              contain an 11-pair; false otherwise.
-	 */
-	private boolean containsPairSum11(List<Integer> selectedCards) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-	}
-
-	/**
-	 * Check for a JQK in the selected cards.
-	 * @param selectedCards selects a subset of this board.  It is list
-	 *                      of indexes into this board that are searched
-	 *                      to find a JQK group.
-	 * @return true if the board entries in selectedCards
-	 *              include a jack, a queen, and a king; false otherwise.
-	 */
-	private boolean containsJQK(List<Integer> selectedCards) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		List<Integer> cards = cardIndexes();
+		for(int i : cards){
+			if(cardAt(i).pointValue() == 0) faceCards++;
+			else{
+				for(int j : cards){
+					if(cardAt(j).pointValue() != 0){
+						if(cardAt(i).pointValue() + cardAt(j).pointValue() == 11){
+							return  true;
+						}
+					}
+				}
+			}
+		}
+		return faceCards >= 3;
 	}
 }

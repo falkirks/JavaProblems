@@ -133,7 +133,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
 		for (int k = 0; k < board.size(); k++) {
 			String cardImageFileName =
 				imageFileName(board.cardAt(k), selections[k]);
-			URL imageURL = getClass().getResource(cardImageFileName);
+			URL imageURL = getClass().getClassLoader().getResource(cardImageFileName);
 			if (imageURL != null) {
 				ImageIcon icon = new ImageIcon(imageURL);
 				displayCards[k].setIcon(icon);

@@ -23,7 +23,7 @@ public abstract class Board {
 	/**
 	 * Flag used to control debugging print statements.
 	 */
-	private static final boolean I_AM_DEBUGGING = false;
+	private static final boolean I_AM_DEBUGGING = true;
 
 	/**
 	 * Creates a new <code>Board</code> instance.
@@ -108,7 +108,7 @@ public abstract class Board {
 	 */
 	public void replaceSelectedCards(List<Integer> selectedCards) {
 		for (Integer k : selectedCards) {
-			deal(k.intValue());
+			deal(k);
 		}
 	}
 
@@ -122,7 +122,7 @@ public abstract class Board {
 		List<Integer> selected = new ArrayList<Integer>();
 		for (int k = 0; k < cards.length; k++) {
 			if (cards[k] != null) {
-				selected.add(new Integer(k));
+				selected.add(k);
 			}
 		}
 		return selected;
