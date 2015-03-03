@@ -1,6 +1,7 @@
 package com.falkirks.elevens;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -74,10 +75,19 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		int faceCards = 0;
-
 		List<Integer> cards = cardIndexes();
 		for(int i : cards){
-			if(cardAt(i).pointValue() == 0) faceCards++;
+			if(cardAt(i).pointValue() == 0){
+				if(cardAt(i).rank().equals("jack")){
+					faceCards += 1;
+				}
+				else if(cardAt(i).rank().equals("queen")){
+					faceCards += 10;
+				}
+				else{
+					faceCards += 100;
+				}
+			}
 			else{
 				for(int j : cards){
 					if(cardAt(j).pointValue() != 0){
@@ -88,6 +98,6 @@ public class ElevensBoard extends Board {
 				}
 			}
 		}
-		return faceCards >= 3;
+		return faceCards == 111;
 	}
 }
