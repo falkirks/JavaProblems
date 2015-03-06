@@ -57,11 +57,23 @@ public class ElevensBoard extends Board {
 	 */
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
-		int points = 0;
-		for (int i = 0; i < selectedCards.size(); i++){
-			points += cardAt(selectedCards.get(i)).pointValue();
+		if(selectedCards.size() == 2 && cardAt(selectedCards.get(0)).pointValue() + cardAt(selectedCards.get(1)).pointValue() == 11){
+			return true;
 		}
-		return (points == 11 && selectedCards.size() == 2) || (points == 0 && selectedCards.size() == 3);
+		int faceCards = 0;
+		for(int i = 0; i < selectedCards.size(); i++) {
+			if (cardAt(selectedCards.get(i)).rank().equals("jack")) {
+				faceCards |= 1;
+			} else if (cardAt(selectedCards.get(i)).rank().equals("queen")) {
+				faceCards |= 2;
+			} else if(cardAt(selectedCards.get(i)).rank().equals("king")) {
+				faceCards |= 4;
+			}
+			if(faceCards == 7){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -79,13 +91,13 @@ public class ElevensBoard extends Board {
 		for(int i : cards){
 			if(cardAt(i).pointValue() == 0){
 				if(cardAt(i).rank().equals("jack")){
-					faceCards += 1;
+					faceCards |= 1;
 				}
 				else if(cardAt(i).rank().equals("queen")){
-					faceCards += 10;
+					faceCards |= 2;
 				}
 				else{
-					faceCards += 100;
+					faceCards |= 4;
 				}
 			}
 			else{
@@ -97,7 +109,11 @@ public class ElevensBoard extends Board {
 					}
 				}
 			}
+
+			if(faceCards == 7){
+				return true;
+			}
 		}
-		return faceCards == 111;
+		return false;
 	}
 }
